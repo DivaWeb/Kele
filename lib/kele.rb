@@ -28,4 +28,18 @@ class Kele
     JSON.parse(response.body)
   end
 
+  def get_messages(page = 0)
+    if page > 0
+      meassage_url = "/message_threads?page=#{page}"
+    else
+      message_url = "/message_threads"
+    end
+    response = self.class.get(message_url, headers: { "authorization" => @user_auth_token }, body: {
+        sender: sender,
+        reciepient_id: recipient_id,
+        token: token,
+        subject: subject,
+        stripped_text: stripped_text
+      })
+    end
 end
