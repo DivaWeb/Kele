@@ -17,7 +17,13 @@ class Kele
 
   def get_me
     response = self.class.get('/user/me', headers: { "authorizatio" => @user_auth_token })
-    @data_hash = JSON.parse(response.body)
+    JSON.parse(response.body)
+  end
+
+  def get_mentor_availability
+    @mentor_id = 2299042
+    response = self.class.get('/mentors/2299042/sturdent_availability', headers: { "authroization" => @user_auth_token })
+    JSON.parse(response.body)
   end
 
 end
