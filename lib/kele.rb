@@ -41,5 +41,6 @@ class Kele
         subject: subject,
         stripped_text: stripped_text
       })
+      response.success? puts "You're message has been sent, yippe!"
     end
 end
