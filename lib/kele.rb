@@ -28,19 +28,21 @@ class Kele
     JSON.parse(response.body)
   end
 
-  def get_messages(page = 0)
-    if page > 0
-      meassage_url = "/message_threads?page=#{page}"
-    else
-      message_url = "/message_threads"
+  def get_messages(page = nil) # optional method parameter
+    if page != nil # return specified page
+      response = self.class.get("https://www.bloc.io/api/v1/message_threads", headers: { "authorization": @auth_token }, body: { "page": page })
+    else # return first page
+      response = self.class.get("https://www.bloc.io/api/v1/message_threads", headers: { "authorization": @auth_token })
     end
-    response = self.class.get(message_url, headers: { "authorization" => @user_auth_token }, body: {
-        sender: sender,
-        reciepient_id: recipient_id,
-        token: token,
-        subject: subject,
-        stripped_text: stripped_text
+    JSON.parse(response.body)
+  end
+   def create_message(sender, recipient_id, subject, stripped_text)
+    response = self.class.post("https://www.bloc.io/api/v1/messages", headers: { "authorization": @auth_token },
+      body: {
+        "sender": sender,
+        "recipient_id": recipient_id,
+        "subject": subject,
+        "stripped-text": stripped_text
       })
-      response.success? puts "You're message has been sent, yippe!"
-    end
+  end
 end
