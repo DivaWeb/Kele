@@ -23,8 +23,8 @@ class Kele
   end
 
   def get_mentor_availability(mentor_id)
-    @mentor_id = 2299042
-    response = self.class.get('/mentors/2299042/sturdent_availability', headers: { "authroization" => @user_auth_token })
+
+    response = self.class.get("https://www.bloc.io/api/v1/mentors/#{mentor_id}/student_availability", headers: { "authroization" => @user_auth_token })
     JSON.parse(response.body)
   end
 
