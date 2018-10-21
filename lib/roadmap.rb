@@ -23,6 +23,7 @@ module Roadmap
     def get_remaining_checkpoints(roadmap_id)
         response = self.class.get("https://www.bloc.io/api/v1/enrollment_chains/#{roadmap_id}/checkpoints_remaining_in_section", headers:{ "authorization" => @auth_token })
         JSON.parse(response.body)
+        
     end
 
 end
